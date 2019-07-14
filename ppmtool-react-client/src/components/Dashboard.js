@@ -5,7 +5,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <h1>Welcome to PPM SD</h1>
+        <h1 className="alert alert-warning">Welcome to PPM SD</h1>
         <ProjectItem />
         <ProjectItem />
         <ProjectItem />
