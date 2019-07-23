@@ -14,7 +14,7 @@ public class ProjectTask {
     private Long id;
 
     @Column(updatable = false)
-    private String prokectSequence;
+    private String projectSequence;
 
     @NotBlank(message = "Please include project summary")
     private String summary;
@@ -61,12 +61,12 @@ public class ProjectTask {
         this.id = id;
     }
 
-    public String getProkectSequence() {
-        return prokectSequence;
+    public String getProjectSequence() {
+        return projectSequence;
     }
 
-    public void setProkectSequence(String prokectSequence) {
-        this.prokectSequence = prokectSequence;
+    public void setProjectSequence(String projectSequence) {
+        this.projectSequence = projectSequence;
     }
 
     public String getSummary() {
@@ -145,7 +145,7 @@ public class ProjectTask {
     public String toString() {
         return "ProjectTask{" +
                 "id=" + id +
-                ", prokectSequence='" + prokectSequence + '\'' +
+                ", projectSequence='" + projectSequence + '\'' +
                 ", summary='" + summary + '\'' +
                 ", acceptanceCriteria='" + acceptanceCriteria + '\'' +
                 ", status='" + status + '\'' +
