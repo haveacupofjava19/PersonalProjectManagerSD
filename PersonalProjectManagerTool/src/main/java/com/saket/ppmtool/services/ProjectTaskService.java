@@ -92,4 +92,13 @@ public class ProjectTaskService {
 
         return projectTask;
     }
+
+    public ProjectTask updateByProjectSequence(ProjectTask updatedProjectTask, String backlog_id, String pt_id){
+        ProjectTask projectTask = projectTaskRepository.findByProjectSequence(pt_id);
+
+        projectTask = updatedProjectTask;
+
+        return projectTaskRepository.save(projectTask);
+
+    }
 }
