@@ -1,12 +1,17 @@
 package com.saket.ppmtool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,18 +31,18 @@ public class User {
     @Transient
     private String confirmPassword;
 
-    private Date created_At;
+    private Date create_At;
 
-    private Date updated_At;
+    private Date update_At;
 
     @PrePersist
     protected void onCreate(){
-        this.created_At = new Date();
+        this.create_At = new Date();
     }
 
     @PreUpdate
     protected void onUpdate(){
-        this.updated_At = new Date();
+        this.update_At = new Date();
     }
 
     public User(){
@@ -84,18 +89,48 @@ public class User {
     }
 
     public Date getCreated_At() {
-        return created_At;
+        return create_At;
     }
 
     public void setCreated_At(Date created_At) {
-        this.created_At = created_At;
+        this.create_At = created_At;
     }
 
     public Date getUpdated_At() {
-        return updated_At;
+        return update_At;
     }
 
     public void setUpdated_At(Date updated_At) {
-        this.updated_At = updated_At;
+        this.update_At = updated_At;
+    }
+
+    @Override
+    @JsonIgnore
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isEnabled() {
+        return true;
     }
 }
