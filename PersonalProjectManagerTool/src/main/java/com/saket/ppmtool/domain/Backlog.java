@@ -1,6 +1,8 @@
 package com.saket.ppmtool.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.saket.ppmtool.domain.Project;
+import com.saket.ppmtool.domain.ProjectTask;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,23 +14,23 @@ public class Backlog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Integer PTSequence = 0;
-
     private String projectIdentifier;
 
-    //OneToOne with Project
+    //OneToOne with project
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "project_id", nullable = false)
+    @JoinColumn(name="project_id",nullable = false)
     @JsonIgnore
     private Project project;
 
-    //OneToMany with Tasks
+    //OneToMany projecttasks
     @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "backlog", orphanRemoval = true)
     private List<ProjectTask> projectTasks = new ArrayList<>();
+    //Cascade REFRESH
+    //ORPHAN REMOVAL
 
-    public Backlog(){
 
+    public Backlog() {
     }
 
     public Long getId() {
@@ -70,4 +72,6 @@ public class Backlog {
     public void setProjectTasks(List<ProjectTask> projectTasks) {
         this.projectTasks = projectTasks;
     }
+
+
 }
