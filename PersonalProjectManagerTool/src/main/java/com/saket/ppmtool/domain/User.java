@@ -7,8 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User implements UserDetails {
@@ -44,6 +46,9 @@ public class User implements UserDetails {
     protected void onUpdate(){
         this.update_At = new Date();
     }
+
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
+    private List<Project> projects = new ArrayList<>();
 
     public User(){
     }
@@ -88,20 +93,28 @@ public class User implements UserDetails {
         this.confirmPassword = confirmPassword;
     }
 
-    public Date getCreated_At() {
+    public Date getCreate_At() {
         return create_At;
     }
 
-    public void setCreated_At(Date created_At) {
+    public void setCreate_At(Date created_At) {
         this.create_At = created_At;
     }
 
-    public Date getUpdated_At() {
+    public Date getUpdate_At() {
         return update_At;
     }
 
-    public void setUpdated_At(Date updated_At) {
+    public void setUpdate_At(Date updated_At) {
         this.update_At = updated_At;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
     @Override
