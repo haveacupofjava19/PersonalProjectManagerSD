@@ -50,7 +50,7 @@ public class ProjectTask {
 
     @PreUpdate
     protected void onUpdate(){
-        this.created_At = new Date();
+        this.updated_At = new Date();
     }
 
     public Long getId() {
