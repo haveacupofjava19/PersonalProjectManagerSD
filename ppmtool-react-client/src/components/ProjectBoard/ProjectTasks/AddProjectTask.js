@@ -29,10 +29,11 @@ class AddProjectTask extends Component {
     }
   }
 
+  // on change
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-
+  //on submit
   onSubmit(e) {
     e.preventDefault();
 
@@ -43,7 +44,6 @@ class AddProjectTask extends Component {
       priority: this.state.priority,
       dueDate: this.state.dueDate
     };
-
     this.props.addProjectTask(
       this.state.projectIdentifier,
       newTask,
