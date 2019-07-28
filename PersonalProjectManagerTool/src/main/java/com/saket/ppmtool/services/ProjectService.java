@@ -74,7 +74,7 @@ public class ProjectService {
             throw new ProjectIdException("Project ID '"+projectId+"' doesn't exist");
 
         if(!project.getProjectLeader().equals(username))
-            throw new ProjectNotFoundException("Project not found");
+            throw new ProjectNotFoundException("Project not found for user: '"+username+"'");
 
         return project;
     }
