@@ -62,6 +62,7 @@ class ProjectBoard extends Component {
         </Link>
         <br />
         <hr />
+        {BoardContent}
       </div>
     );
   }
