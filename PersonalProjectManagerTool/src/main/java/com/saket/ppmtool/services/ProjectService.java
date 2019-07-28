@@ -4,11 +4,14 @@ import com.saket.ppmtool.domain.Backlog;
 import com.saket.ppmtool.domain.Project;
 import com.saket.ppmtool.domain.User;
 import com.saket.ppmtool.exceptions.ProjectIdException;
+import com.saket.ppmtool.exceptions.ProjectNotFoundException;
 import com.saket.ppmtool.repositories.BacklogRepository;
 import com.saket.ppmtool.repositories.ProjectRepository;
 import com.saket.ppmtool.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
 
 @Service
 public class ProjectService {
@@ -52,26 +55,26 @@ public class ProjectService {
         }
     }
 
-    public Project findProjectByIdentifier(String projectId){
+    public Project findProjectByIdentifier(String projectId, String username){
 
         Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 
         if(project == null)
             throw new ProjectIdException("Project ID '"+projectId+"' doesn't exist");
 
+        if(!project.getProjectLeader().equals(username))
+            throw new ProjectNotFoundException("Project not found");
+
         return project;
     }
 
-    public Iterable<Project> findAllProjects(){
-        return projectRepository.findAll();
+    public Iterable<Project> findAllProjects(String username){
+        return projectRepository.findAllByProjectLeader(username);
     }
 
-    public void deleteProjectByIdentifier(String projectId){
-        Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+    public void deleteProjectByIdentifier(String projectId, String username){
 
-        if(project == null)
-            throw new ProjectIdException("Project with ID:'"+projectId+"' does't exist");
 
-        projectRepository.delete(project);
+        projectRepository.delete(findProjectByIdentifier(projectId, username));
     }
 }
